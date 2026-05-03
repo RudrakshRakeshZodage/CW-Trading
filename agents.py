@@ -1,31 +1,24 @@
 import os
+import sys
 from crewai import Agent
 from langchain_openai import ChatOpenAI
 from tools.apify_tool import MetaAdsSearchTool, AdPainExtractorTool
 from tools.video_tool import ElevenLabsTTSTool, RemotionVideoTool
 
-from langchain_community.llms.fake import FakeListLLM
-
-# Initialize LLM via OpenRouter or fallback to Mock
+# --- API KEY CHECK ---
 api_key = os.getenv("OPENROUTER_API_KEY")
 if not api_key or "your_" in api_key:
-    # Setting a dummy key so CrewAI doesn't complain about missing keys elsewhere
-    os.environ["OPENAI_API_KEY"] = "sk-dummy"
-    llm = FakeListLLM(
-        responses=[
-            "Thought: I need to search for ads. Action: meta_ads_search. Action Input: {'query': 'Crowd Wisdom Trading'}",
-            "Thought: I have the ads. I need to analyze them. Action: ad_pain_extractor. Action Input: {'file_path': 'data/ads_results.json'}",
-            "Final Answer: The marketing strategy should focus on financial freedom and signal consistency.",
-            "Final Answer: Script: [Hook] Trading is hard, but it doesn't have to be. [CTA] Join CW-Trading.",
-            "Final Answer: Voice and Video assets are ready."
-        ]
-    )
-else:
-    llm = ChatOpenAI(
-        model=os.getenv("MODEL", "google/gemini-2.0-flash-lite-001"),
-        openai_api_key=api_key,
-        openai_api_base="https://openrouter.ai/api/v1"
-    )
+    print("\n❌ ERROR: OPENROUTER_API_KEY is missing or invalid in .env")
+    print("👉 To run the live agents, please add your key to the .env file.")
+    print("👉 To see a demonstration without keys, run: python mock_main.py\n")
+    sys.exit(1)
+
+# Initialize LLM via OpenRouter (Production Mode)
+llm = ChatOpenAI(
+    model=os.getenv("MODEL", "google/gemini-2.0-flash-lite-001"),
+    openai_api_key=api_key,
+    openai_api_base="https://openrouter.ai/api/v1"
+)
 
 # Agent 1: Search successful ads
 ad_searcher = Agent(
