@@ -1,15 +1,16 @@
 import os
 from dotenv import load_dotenv
+
+# Load environment variables FIRST
+load_dotenv()
+
 from crewai import Crew, Process
 from agents import ad_searcher, marketing_analyst, script_writer, production_lead
 from tasks import search_task, analysis_task, script_task, production_task
 from tools.logger_util import logger
 
-# Load environment variables
-load_dotenv()
-
 def run_ad_crew():
-    logger.info("🚀 Starting the CW-Trading Ad Creation Crew...")
+    logger.info("Starting the CW-Trading Ad Creation Crew...")
     
     # Define the Crew
     crew = Crew(

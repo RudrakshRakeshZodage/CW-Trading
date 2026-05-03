@@ -4,7 +4,7 @@ import json
 from tools.logger_util import logger
 
 def simulate_crew():
-    logger.info("🚀 Starting the CW-Trading Ad Creation Crew (Simulation Mode)...")
+    logger.info("Starting the CW-Trading Ad Creation Crew (Simulation Mode)...")
     time.sleep(1)
     
     print("\n--- [Agent: Meta Ads Research Specialist] ---")
