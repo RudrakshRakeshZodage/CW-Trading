@@ -8,9 +8,9 @@ from tools.video_tool import ElevenLabsTTSTool, RemotionVideoTool
 # --- API KEY CHECK ---
 api_key = os.getenv("OPENROUTER_API_KEY")
 if not api_key or "your_" in api_key:
-    print("\n❌ ERROR: OPENROUTER_API_KEY is missing or invalid in .env")
-    print("👉 To run the live agents, please add your key to the .env file.")
-    print("👉 To see a demonstration without keys, run: python mock_main.py\n")
+    print("\nERROR: OPENROUTER_API_KEY is missing or invalid in .env")
+    print("-> To run the live agents, please add your key to the .env file.")
+    print("-> To see a demonstration without keys, run: python mock_main.py\n")
     sys.exit(1)
 
 # Initialize LLM via OpenRouter (Production Mode)
