@@ -4,24 +4,19 @@ from langchain_openai import ChatOpenAI
 from tools.apify_tool import MetaAdsSearchTool, AdPainExtractorTool
 from tools.video_tool import ElevenLabsTTSTool, RemotionVideoTool
 
-from langchain_core.language_models.chat_models import BaseChatModel
-from langchain_core.messages import BaseMessage, AIMessage
-from typing import Any, List, Optional
-from pydantic import Field
-
-class MockLLM(BaseChatModel):
-    def _generate(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, **kwargs: Any):
-        content = "This is a mock response from the agent to demonstrate the flow. The script for the ad is: 'Unlock your trading potential with Crowd Wisdom. Stop guessing and start winning!'"
-        return AIMessage(content=content)
-    
-    @property
-    def _llm_type(self) -> str:
-        return "mock"
+from langchain_community.chat_models import FakeListChatModel
 
 # Initialize LLM via OpenRouter or fallback to Mock
 api_key = os.getenv("OPENROUTER_API_KEY")
 if not api_key or "your_" in api_key:
-    llm = MockLLM()
+    llm = FakeListChatModel(
+        responses=[
+            "Success! Here are some successful Meta ads ideas based on CW-Trading: 1. Consistent Signals, 2. Financial Freedom, 3. Community Support.",
+            "Analyzing the ads, the primary pain points are: FOMO, lack of technical knowledge, and emotional trading.",
+            "Ad Script: [Hook] Stop guessing your trades! [Value] CW-Trading gives you the wisdom of the crowd. [CTA] Join now!",
+            "Voice generated and Remotion data prepared for the 60s ad."
+        ]
+    )
 else:
     llm = ChatOpenAI(
         model=os.getenv("MODEL", "google/gemini-2.0-flash-lite-001"),
