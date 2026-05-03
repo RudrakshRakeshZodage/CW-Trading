@@ -4,17 +4,20 @@ from langchain_openai import ChatOpenAI
 from tools.apify_tool import MetaAdsSearchTool, AdPainExtractorTool
 from tools.video_tool import ElevenLabsTTSTool, RemotionVideoTool
 
-from langchain_community.chat_models import FakeListChatModel
+from langchain_community.llms.fake import FakeListLLM
 
 # Initialize LLM via OpenRouter or fallback to Mock
 api_key = os.getenv("OPENROUTER_API_KEY")
 if not api_key or "your_" in api_key:
-    llm = FakeListChatModel(
+    # Setting a dummy key so CrewAI doesn't complain about missing keys elsewhere
+    os.environ["OPENAI_API_KEY"] = "sk-dummy"
+    llm = FakeListLLM(
         responses=[
-            "Success! Here are some successful Meta ads ideas based on CW-Trading: 1. Consistent Signals, 2. Financial Freedom, 3. Community Support.",
-            "Analyzing the ads, the primary pain points are: FOMO, lack of technical knowledge, and emotional trading.",
-            "Ad Script: [Hook] Stop guessing your trades! [Value] CW-Trading gives you the wisdom of the crowd. [CTA] Join now!",
-            "Voice generated and Remotion data prepared for the 60s ad."
+            "Thought: I need to search for ads. Action: meta_ads_search. Action Input: {'query': 'Crowd Wisdom Trading'}",
+            "Thought: I have the ads. I need to analyze them. Action: ad_pain_extractor. Action Input: {'file_path': 'data/ads_results.json'}",
+            "Final Answer: The marketing strategy should focus on financial freedom and signal consistency.",
+            "Final Answer: Script: [Hook] Trading is hard, but it doesn't have to be. [CTA] Join CW-Trading.",
+            "Final Answer: Voice and Video assets are ready."
         ]
     )
 else:
