@@ -1,2 +1,35 @@
 2026-05-03 17:20:43,994 - AdCrew - INFO - Starting the CW-Trading Ad Creation Crew (Simulation Mode)...
 2026-05-03 17:21:58,826 - AdCrew - INFO - Starting the CW-Trading Ad Creation Crew (Simulation Mode)...
+2026-05-03 17:25:43,213 - AdCrew - INFO - Starting the CW-Trading Ad Creation Crew...
+2026-05-03 17:25:43,537 - root - INFO - OpenAI: Successfully validated tool 'meta_ads_search'
+2026-05-03 17:25:44,904 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:44,985 - AdCrew - INFO - Starting the CW-Trading Ad Creation Crew...
+2026-05-03 17:25:45,012 - root - INFO - OpenAI: Successfully validated tool 'meta_ads_search'
+2026-05-03 17:25:46,090 - root - INFO - OpenAI: Successfully validated tool 'meta_ads_search'
+2026-05-03 17:25:46,170 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:46,789 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:47,684 - root - INFO - OpenAI: Successfully validated tool 'meta_ads_search'
+2026-05-03 17:25:48,245 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:48,422 - root - INFO - OpenAI API usage: {'prompt_tokens': 304, 'completion_tokens': 30, 'total_tokens': 334, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
+2026-05-03 17:25:48,449 - root - INFO - OpenAI: Successfully validated tool 'ad_pain_extractor'
+2026-05-03 17:25:48,989 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:49,103 - root - INFO - OpenAI API usage: {'prompt_tokens': 197, 'completion_tokens': 21, 'total_tokens': 218, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
+2026-05-03 17:25:50,041 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:50,377 - root - INFO - OpenAI API usage: {'prompt_tokens': 183, 'completion_tokens': 809, 'total_tokens': 992, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
+2026-05-03 17:25:50,442 - root - INFO - OpenAI: Successfully validated tool 'ad_pain_extractor'
+2026-05-03 17:25:51,421 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:52,439 - root - INFO - OpenAI API usage: {'prompt_tokens': 977, 'completion_tokens': 212, 'total_tokens': 1189, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
+2026-05-03 17:25:53,134 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:55,419 - root - INFO - OpenAI API usage: {'prompt_tokens': 198, 'completion_tokens': 809, 'total_tokens': 1007, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
+2026-05-03 17:25:55,479 - root - INFO - OpenAI: Successfully validated tool 'elevenlabs_tts'
+2026-05-03 17:25:55,480 - root - INFO - OpenAI: Successfully validated tool 'remotion_video_generator'
+2026-05-03 17:25:56,479 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:25:57,473 - root - INFO - OpenAI API usage: {'prompt_tokens': 390, 'completion_tokens': 656, 'total_tokens': 1046, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
+2026-05-03 17:25:57,500 - root - INFO - OpenAI: Successfully validated tool 'elevenlabs_tts'
+2026-05-03 17:25:57,501 - root - INFO - OpenAI: Successfully validated tool 'remotion_video_generator'
+2026-05-03 17:26:00,099 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:26:00,894 - root - INFO - OpenAI API usage: {'prompt_tokens': 997, 'completion_tokens': 935, 'total_tokens': 1932, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
+2026-05-03 17:26:02,233 - root - INFO - OpenAI: Successfully validated tool 'elevenlabs_tts'
+2026-05-03 17:26:02,235 - root - INFO - OpenAI: Successfully validated tool 'remotion_video_generator'
+2026-05-03 17:26:02,823 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-03 17:26:03,071 - root - INFO - OpenAI API usage: {'prompt_tokens': 1747, 'completion_tokens': 23, 'total_tokens': 1770, 'cached_prompt_tokens': 0, 'reasoning_tokens': 0}
