@@ -10,7 +10,20 @@ class MetaAdsSearchTool(BaseTool):
     description: str = "Searches for successful Meta ads for a specific niche or product in the last 30 days."
     
     def _run(self, query: str) -> str:
-        client = ApifyClient(os.getenv("APIFY_API_TOKEN"))
+        api_token = os.getenv("APIFY_API_TOKEN")
+        if not api_token or "your_" in api_token:
+            # Mock successful ad search
+            mock_results = [
+                {"ad_creative_bodies": ["Master the markets with Crowd Wisdom. Join our elite trading course today!"], "page_name": "CW Trading"},
+                {"ad_creative_bodies": ["Stop guessing, start trading with data-driven signals. Limited spots available."], "page_name": "Market Pros"}
+            ]
+            output_path = "data/ads_results.json"
+            os.makedirs("data", exist_ok=True)
+            with open(output_path, "w") as f:
+                json.dump(mock_results, f, indent=4)
+            return f"[MOCK] Successfully found 2 ads. Results saved to {output_path}."
+
+        client = ApifyClient(api_token)
         
         # Calculate date 30 days ago
         thirty_days_ago = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
@@ -46,6 +59,9 @@ class AdPainExtractorTool(BaseTool):
     
     def _run(self, file_path: str) -> str:
         try:
+            if not os.path.exists(file_path):
+                return "[MOCK] Extracted Pain Points: Lack of consistent signals, emotional trading, complexity of technical analysis."
+            
             with open(file_path, 'r') as f:
                 ads = json.load(f)
             

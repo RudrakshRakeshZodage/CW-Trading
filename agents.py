@@ -4,12 +4,30 @@ from langchain_openai import ChatOpenAI
 from tools.apify_tool import MetaAdsSearchTool, AdPainExtractorTool
 from tools.video_tool import ElevenLabsTTSTool, RemotionVideoTool
 
-# Initialize LLM via OpenRouter
-llm = ChatOpenAI(
-    model=os.getenv("MODEL", "google/gemini-2.0-flash-lite-001"),
-    openai_api_key=os.getenv("OPENROUTER_API_KEY"),
-    openai_api_base="https://openrouter.ai/api/v1"
-)
+from langchain_core.language_models.chat_models import BaseChatModel
+from langchain_core.messages import BaseMessage, AIMessage
+from typing import Any, List, Optional
+from pydantic import Field
+
+class MockLLM(BaseChatModel):
+    def _generate(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, **kwargs: Any):
+        content = "This is a mock response from the agent to demonstrate the flow. The script for the ad is: 'Unlock your trading potential with Crowd Wisdom. Stop guessing and start winning!'"
+        return AIMessage(content=content)
+    
+    @property
+    def _llm_type(self) -> str:
+        return "mock"
+
+# Initialize LLM via OpenRouter or fallback to Mock
+api_key = os.getenv("OPENROUTER_API_KEY")
+if not api_key or "your_" in api_key:
+    llm = MockLLM()
+else:
+    llm = ChatOpenAI(
+        model=os.getenv("MODEL", "google/gemini-2.0-flash-lite-001"),
+        openai_api_key=api_key,
+        openai_api_base="https://openrouter.ai/api/v1"
+    )
 
 # Agent 1: Search successful ads
 ad_searcher = Agent(

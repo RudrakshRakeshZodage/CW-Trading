@@ -8,8 +8,8 @@ class ElevenLabsTTSTool(BaseTool):
     
     def _run(self, text: str, voice_id: str = "pNInz6obpg8ndclQU7Nc") -> str:
         api_key = os.getenv("ELEVENLABS_API_KEY")
-        if not api_key:
-            return "Error: ElevenLabs API Key missing."
+        if not api_key or "your_" in api_key:
+            return "[MOCK] Voice generated successfully at data/ad_voice.mp3 (Simulated)"
             
         url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
         headers = {
@@ -43,15 +43,11 @@ class RemotionVideoTool(BaseTool):
     description: str = "Triggers Remotion to render the video with script and audio."
     
     def _run(self, script_json: str) -> str:
-        # In a real scenario, this would update a JSON file that Remotion reads
-        # and then run 'npx remotion render'
         try:
+            os.makedirs("remotion", exist_ok=True)
             with open("remotion/data.json", "w") as f:
                 f.write(script_json)
             
-            # Simulated command (would require node/remotion installed)
-            # cmd = "cd remotion && npx remotion render MyVideo out/video.mp4"
-            
-            return "Remotion data prepared. Ready for rendering."
+            return "[MOCK] Remotion data prepared. Video rendering simulation complete."
         except Exception as e:
             return f"Error preparing Remotion: {str(e)}"
