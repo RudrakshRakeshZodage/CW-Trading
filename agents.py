@@ -13,12 +13,11 @@ if not api_key or "your_" in api_key:
     print("-> To see a demonstration without keys, run: python mock_main.py\n")
     sys.exit(1)
 
-# Initialize LLM via OpenRouter (Production Mode)
-llm = ChatOpenAI(
-    model=os.getenv("MODEL", "google/gemini-2.0-flash-lite-001"),
-    openai_api_key=api_key,
-    openai_api_base="https://openrouter.ai/api/v1"
-)
+# Initialize LLM via OpenRouter (Production Mode - Passing as string for CrewAI compatibility)
+llm_model = f"openrouter/{os.getenv('MODEL', 'google/gemini-2.0-flash-lite-001')}"
+# Ensure OPENROUTER_API_KEY is also set in environment for CrewAI to use
+os.environ["OPENAI_API_KEY"] = api_key
+os.environ["OPENAI_API_BASE"] = "https://openrouter.ai/api/v1"
 
 # Agent 1: Search successful ads
 ad_searcher = Agent(
@@ -26,7 +25,7 @@ ad_searcher = Agent(
     goal="Find the top performing ads in the last 30 days for {product_name} and {niche}.",
     backstory="Expert in digital marketing and competitive intelligence. You know how to find what's working on Meta Ads Library.",
     tools=[MetaAdsSearchTool()],
-    llm=llm,
+    llm=llm_model,
     verbose=True
 )
 
@@ -36,7 +35,7 @@ marketing_analyst = Agent(
     goal="Analyze the successful ads and extract core pain points, hooks, and marketing concepts.",
     backstory="You are a psychology-driven marketer who understands deep customer pain points and how to leverage them in ads.",
     tools=[AdPainExtractorTool()],
-    llm=llm,
+    llm=llm_model,
     verbose=True
 )
 
@@ -45,7 +44,7 @@ script_writer = Agent(
     role="Creative Copywriter",
     goal="Create a high-converting 60-second ad script based on identified pain points and product data.",
     backstory="Award-winning copywriter specialized in short-form video ads. You know how to make people stop scrolling.",
-    llm=llm,
+    llm=llm_model,
     verbose=True
 )
 
@@ -55,6 +54,6 @@ production_lead = Agent(
     goal="Generate the audio and prepare video assets for the final ad.",
     backstory="Expert in multimedia production, specialized in automated video creation using AI voices and Remotion.",
     tools=[ElevenLabsTTSTool(), RemotionVideoTool()],
-    llm=llm,
+    llm=llm_model,
     verbose=True
 )
